@@ -1,10 +1,14 @@
+package app;
+
+import java.math.BigDecimal;
+
 public class Produto implements Vendavel {
     private String nome;
-    private double precoUnitario;
+    private BigDecimal precoUnitario;
     private int estoque;
-    private double imposto; // proporção
+    private BigDecimal imposto; // proporção, ex: 0.12
 
-    public Produto(String nome, double precoUnitario, int estoque, double imposto) {
+    public Produto(String nome, BigDecimal precoUnitario, int estoque, BigDecimal imposto) {
         this.nome = nome;
         this.precoUnitario = precoUnitario;
         this.estoque = estoque;
@@ -12,18 +16,20 @@ public class Produto implements Vendavel {
     }
 
     @Override
-    public double calcularPrecoTotal(int quantidade) {
-        if (quantidade <= 0) return 0;
+    public BigDecimal calcularPrecoTotal(int quantidade) {
+        if (quantidade <= 0) return BigDecimal.ZERO;
         if (quantidade > estoque) quantidade = estoque; // vende só o que tem
-        double precoBruto = precoUnitario * quantidade;
-        return precoBruto * (1 + imposto);
+        BigDecimal qtd = BigDecimal.valueOf(quantidade);
+        BigDecimal precoBruto = precoUnitario.multiply(qtd);
+        return precoBruto.multiply(imposto.add(BigDecimal.ONE)).setScale(2, java.math.RoundingMode.HALF_EVEN);
     }
 
     @Override
-    public double aplicarDesconto(double preco, double desconto) {
-        if (desconto < 0) desconto = 0;
-        if (desconto > 1) desconto = 1;
-        return preco * (1 - desconto);
+    public BigDecimal aplicarDesconto(BigDecimal preco, BigDecimal desconto) {
+        if (desconto == null) desconto = BigDecimal.ZERO;
+        if (desconto.compareTo(BigDecimal.ZERO) < 0) desconto = BigDecimal.ZERO;
+        if (desconto.compareTo(BigDecimal.ONE) > 0) desconto = BigDecimal.ONE;
+        return preco.multiply(BigDecimal.ONE.subtract(desconto)).setScale(2, java.math.RoundingMode.HALF_EVEN);
     }
 
     public boolean emEstoque() {

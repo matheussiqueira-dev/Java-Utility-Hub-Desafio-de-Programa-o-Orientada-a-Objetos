@@ -1,3 +1,7 @@
+package app;
+
+import java.math.BigDecimal;
+
 public interface ConversaoFinanceira {
-    double converterDolarParaReal(double valorDolar);
+    BigDecimal converterDolarParaReal(BigDecimal valorDolar);
 }

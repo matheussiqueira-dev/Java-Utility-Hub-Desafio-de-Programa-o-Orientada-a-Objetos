@@ -1,3 +1,7 @@
+package app;
+
+import java.math.BigDecimal;
+
 public interface Calculavel {
-    double calcularPrecoFinal();
+    BigDecimal calcularPrecoFinal();
 }

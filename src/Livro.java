@@ -1,10 +1,14 @@
+package app;
+
+import java.math.BigDecimal;
+
 public class Livro implements Calculavel {
     private String titulo;
     private String autor;
-    private double precoBase;
-    private double desconto; // entre 0 e 1
+    private BigDecimal precoBase;
+    private BigDecimal desconto; // entre 0 e 1
 
-    public Livro(String titulo, String autor, double precoBase, double desconto) {
+    public Livro(String titulo, String autor, BigDecimal precoBase, BigDecimal desconto) {
         this.titulo = titulo;
         this.autor = autor;
         this.precoBase = precoBase;
@@ -12,10 +16,11 @@ public class Livro implements Calculavel {
     }
 
     @Override
-    public double calcularPrecoFinal() {
-        if (desconto < 0) desconto = 0;
-        if (desconto > 1) desconto = 1;
-        return precoBase * (1 - desconto);
+    public BigDecimal calcularPrecoFinal() {
+        BigDecimal d = desconto == null ? BigDecimal.ZERO : desconto;
+        if (d.compareTo(BigDecimal.ZERO) < 0) d = BigDecimal.ZERO;
+        if (d.compareTo(BigDecimal.ONE) > 0) d = BigDecimal.ONE;
+        return precoBase.multiply(BigDecimal.ONE.subtract(d)).setScale(2, java.math.RoundingMode.HALF_EVEN);
     }
 
     @Override

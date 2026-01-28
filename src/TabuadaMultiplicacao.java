@@ -1,3 +1,5 @@
+package app;
+
 public class TabuadaMultiplicacao implements Tabuada {
     private int numero;
     private int maxMultiplicador;

@@ -1,3 +1,5 @@
+package app;
+
 public class CalculadoraSalaRetangular implements CalculoGeometrico {
     private double largura;
     private double comprimento;

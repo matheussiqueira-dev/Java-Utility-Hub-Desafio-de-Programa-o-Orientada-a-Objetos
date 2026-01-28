@@ -1,10 +1,14 @@
+package app;
+
+import java.math.BigDecimal;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Demo das novas classes e interfaces\n");
 
         // Conversor de moeda
-        ConversorMoeda conversor = new ConversorMoeda(5.25);
-        double reais = conversor.converterDolarParaReal(10.0);
+        ConversorMoeda conversor = new ConversorMoeda(BigDecimal.valueOf(5.25));
+        BigDecimal reais = conversor.converterDolarParaReal(BigDecimal.valueOf(10.0));
         System.out.println("10 USD em R$: " + reais + " (taxa 5.25)");
 
         // Sala retangular
@@ -25,14 +29,14 @@ public class Main {
         System.out.println("32°F em °C: " + c);
 
         // Calculavel: Livro e ProdutoFisico
-        Livro livro = new Livro("Aprendendo Java", "Autor X", 120.0, 0.1);
-        ProdutoFisico prodFis = new ProdutoFisico("Teclado", 250.0, 0.12);
+        Livro livro = new Livro("Aprendendo Java", "Autor X", BigDecimal.valueOf(120.0), BigDecimal.valueOf(0.1));
+        ProdutoFisico prodFis = new ProdutoFisico("Teclado", BigDecimal.valueOf(250.0), BigDecimal.valueOf(0.12));
         System.out.println("\n" + livro);
         System.out.println(prodFis);
 
         // Vendavel: Produto e Servico
-        Produto produto = new Produto("Mouse", 80.0, 5, 0.12);
-        Servico servico = new Servico("Desenvolvimento", 100.0, 2.5);
+        Produto produto = new Produto("Mouse", BigDecimal.valueOf(80.0), 5, BigDecimal.valueOf(0.12));
+        Servico servico = new Servico("Desenvolvimento", BigDecimal.valueOf(100.0), 2.5);
         System.out.println("\n" + produto);
         System.out.println("Preço total (3 unidades): R$" + produto.calcularPrecoTotal(3));
         System.out.println(servico);

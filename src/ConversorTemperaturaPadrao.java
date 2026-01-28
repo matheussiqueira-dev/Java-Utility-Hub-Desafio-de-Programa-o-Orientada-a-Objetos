@@ -1,3 +1,5 @@
+package app;
+
 public class ConversorTemperaturaPadrao implements ConversorTemperatura {
     @Override
     public double celsiusParaFahrenheit(double celsius) {
